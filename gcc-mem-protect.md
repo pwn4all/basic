@@ -4,8 +4,9 @@
 
 #### &#42; All off
 ```bash
-$ gcc -z execstack         # NX off
-
+$ gcc -m32 -mpreferred-stack-boundary=2 -fno-stack-protector -z execstack -no-pie -z norelro filename.c -o filename
+$ gcc -m64 -mpreferred-stack-boundary=4 -fno-stack-protector -z execstack -no-pie -z norelro filename.c -o filename
+```
 
 #### &#42; Compile bit(32/64bit)
 ```bash
