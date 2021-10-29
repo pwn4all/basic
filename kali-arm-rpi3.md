@@ -9,8 +9,8 @@ $ Can't connect wifi on the other kali-linux-versions.
 ```
 
 #### &#42; apt update error
-## &#42; 1) [PGP] Auth key error
-## link : <https://superuser.com/questions/1644520/apt-get-update-issue-in-kali/>
+#### &#42; 1) [PGP] Auth key error
+#### link : <https://superuser.com/questions/1644520/apt-get-update-issue-in-kali/>
 ```bash
 
 # wget -q -O - https://archive.kali.org/archive-key.asc  | apt-key add –
@@ -20,14 +20,14 @@ invalid period ....failed....
 # dpkg -i kali-archive-keyring_2020.2_all.deb
 ```
 
-## &#42; 2) repository address
-## link : <https://www.kali.org/docs/general-use/kali-linux-sources-list-repositories/>
+#### &#42; 2) repository address
+#### link : <https://www.kali.org/docs/general-use/kali-linux-sources-list-repositories/>
 ```bash
 # echo "deb http://http.kali.org/kali kali-rolling main non-free contrib" | sudo tee /etc/apt/sources.list
 ```
 
-## &#42; 3) apt update success
-## link : <https://www.kali.org/docs/general-use/metapackages/>
+#### &#42; 3) apt update success
+#### link : <https://www.kali.org/docs/general-use/metapackages/>
 ```bash
 # apt update
 ------------------------------
