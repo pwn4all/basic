@@ -37,5 +37,13 @@ invalid period ....failed....
 or
 ------------------------------
 apt install -y kali-linux-arm
+apt upgrade
+```
+
+
+## &#42; 4) install gdb
+```bash
+# apt install gdb
+
 ```
 
