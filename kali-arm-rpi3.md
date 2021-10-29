@@ -37,7 +37,7 @@ invalid period ....failed....
 or
 ------------------------------
 apt install -y kali-linux-arm
-apt upgrade
+
 ```
 
 
