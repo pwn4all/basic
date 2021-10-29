@@ -3,10 +3,8 @@
 #### &#42; download : <https://www.kali.org/get-kali/#kali-arm/>
 #### &#42; older version : <http://old.kali.org/kali-images/>
 
-#### &#42; My Version : kali-linux-2018.4-rpi3-nexmon.img
-```bash
-$ Can't connect wifi on the other kali-linux-versions.
-```
+#### &#42; My Version : kali-linux-2021.3-rpi4-nexmon-arm64.img
+
 
 #### &#42; apt update error
 #### &#42; 1) [PGP] Auth key error
