@@ -5,6 +5,7 @@
 
 
 #### &#42; python2.7 & pip2
+#### link : <https://www.how2shout.com/linux/how-to-install-python-2-7-on-ubuntu-20-04-lts/>
 ```bash
 
 $ sudo apt-add-repository universe
