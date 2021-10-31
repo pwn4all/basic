@@ -64,8 +64,8 @@ $ gcc -z relro -z now         # Full-RELRO on
 
 #### &#42; Fortify_source 
 ```bash
-$ gcc -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0         # RELRO off
-$ gcc -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1         # Partitial-RELRO
-$ gcc -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2         # Full-RELRO on
+$ gcc -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0         # Confuse off
+$ gcc -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1         # Partitial-Confuse
+$ gcc -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2         # Full-Confuse on
 ```
 
