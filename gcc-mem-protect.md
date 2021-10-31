@@ -44,7 +44,7 @@ $ gcc -fstack-protector       # Canary on
 ```bash
 $ gcc -z execstack            # NX off
 
-$ sudo sysctl-w kernel.exec-shield=0 
+$ sudo sysctl -w kernel.exec-shield=0 
 ```
 
 
