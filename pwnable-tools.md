@@ -71,6 +71,14 @@ $ gem install one_gadget
 
 ```
 
+#### &#42; gef
+#### multi platform
+```bash
+$ sudo wget -O /usr/local/gdbinit-gef.py -q http://gef.blah.cat/py
+$ echo source /usr/local/gdbinit-gef.py >> ~/.gdbinit
+
+```
+
 
 #### &#42; peda & peda-heap
 #### x86/x64
