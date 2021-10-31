@@ -34,10 +34,11 @@ $ sudo apt remove python2-minimal
 ```
 
 
-
-
-#### &#42; checksec
+#### &#42; rabin2
 #### link : <https://github.com/slimm609/checksec.sh/>
+```bash
+$ apt-get install radare2
+
 ```bash
 $ cd /usr/local/
 $ git clone https://github.com/slimm609/checksec.sh
