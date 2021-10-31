@@ -117,6 +117,45 @@ $ sudo ./setup.sh
 
 ```
 
+#### &#42; qemu
+#### link : <https://www.tecmint.com/install-kvm-on-ubuntu/>
+```bash
 
+$ egrep -c '(vmx|svm)' /proc/cpuinfo
+
+$ sudo apt install cpu-checker
+$ sudo kvm-ok
+
+$ sudo apt install -y qemu qemu-kvm qemu-arm qemu-user qemu-user-static libvirt-daemon libvirt-clients bridge-utils virt-manager
+  # The qemu package (quick emulator) is an application that allows you to perform hardware virtualization.
+  # The qemu-kvm package is the main KVM package.
+  # The libvritd-daemon is the virtualization daemon.
+  # The bridge-utils package helps you create a bridge connection to allow other users to access a virtual machine other than the host system.
+  # The virt-manager is an application for managing virtual machines through a graphical user interface.
+
+$ sudo service libvirtd status
+  # if not running
+  $ sudo systemctl enable --now libvirtd
+
+$ sudo apt install gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu binutils-aarch64-linux-gnu-dbg build-essential
+
+
+## muti gcc
+$ sudo apt install gcc-arm-linux-gnueabihf binutils-arm-linux-gnueabihf binutils-arm-linux-gnueabihf-dbg
+
+$ cat hello.c
+void main(void) {
+  printf("Hello world\n");
+}
+
+$ arm-linux-gnueabi-gcc hello.c -o hello-eabi
+$ arm-linux-gnueabihf-gcc hello.c -o hello-eabihf
+
+$ qemu-arm -L /usr/arm-linux-gnueabi ./hello-eabi
+Hello world
+$ qemu-arm -L /usr/arm-linux-gnueabihf/ ./hello-hf
+Hello world
+
+```
 
 
