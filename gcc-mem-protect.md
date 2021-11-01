@@ -24,9 +24,9 @@ $ gcc -mpreferred-stack-boundary=4 ... # 64bit
 
 #### &#42; ASLR(Address Space Layout Randomization)
 ```bash
-$ sudo echo 0 > /proc/sys/kernel/randomize_va_space     # ASLR off
-$ sudo echo 1 > /proc/sys/kernel/randomize_va_space     # Stack, Library on
-$ sudo echo 2 > /proc/sys/kernel/randomize_va_space     # All(Stack, Library, Heap) on
+$ sudo bash -c "echo 0 > /proc/sys/kernel/randomize_va_space"     # ASLR off
+$ sudo bash -c "echo 1 > /proc/sys/kernel/randomize_va_space"     # Stack, Library on
+$ sudo bash -c "echo 2 > /proc/sys/kernel/randomize_va_space"     # All(Stack, Library, Heap) on
 
 $ sudo sysctl -w kernel.randomize_va_space=0
 $ sudo sysctl -w kernel.randomize_va_space=1
