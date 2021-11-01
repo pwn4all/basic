@@ -3,7 +3,12 @@
 #### &#42; core file debugging
 ```bash
 
-$ gdb -core corefile
+
+$ ulimit -c unlimited
+$ ./vulnerable $(cat payload1 )
+Segmentation fault (core dumped)
+
+$ gdb -core core
 .
 .
 #0 <0x00005555555551ad> in ?? ()     <- here is corruption pointer
