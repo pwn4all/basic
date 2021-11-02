@@ -28,6 +28,10 @@ $ sudo bash -c "echo 0 > /proc/sys/kernel/randomize_va_space"     # ASLR off
 $ sudo bash -c "echo 1 > /proc/sys/kernel/randomize_va_space"     # Stack, Library on
 $ sudo bash -c "echo 2 > /proc/sys/kernel/randomize_va_space"     # All(Stack, Library, Heap) on
 
+$ echo 0 | sudo tee /proc/sys/kernel/randomize_va_space
+$ echo 1 | sudo tee /proc/sys/kernel/randomize_va_space
+$ echo 2 | sudo tee /proc/sys/kernel/randomize_va_space
+
 $ sudo sysctl -w kernel.randomize_va_space=0
 $ sudo sysctl -w kernel.randomize_va_space=1
 $ sudo sysctl -w kernel.randomize_va_space=2
