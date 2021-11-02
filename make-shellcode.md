@@ -5,16 +5,17 @@ $ cat shell.s
 global _start
 section .text
 _start:
-  xor rsi,rsi
-  push rsi
+  xor rsi,rsi                   ; xor = 0
+  push rsi                      ; push 0x0(null) on stack
   mov rdi,0x68732f2f6e69622f
-  push rdi
+  push rdi                      ; push /bin/sh + 0x0(null)
   push rsp
-  pop rdi
-  push 59
+  pop rdi                       ; sp direct /bin/sh
+  push 59                       ; sys_execve
   pop rax
   cdq
   syscall
+
 
 $ nasm -felf64 shell.s -o shell.o
 $ ld shell.o -o shell
