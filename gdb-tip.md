@@ -26,10 +26,12 @@ $ sudo sysctl -p
 
 
 $ ulimit -c unlimited
-$ ./vulnerable $(cat payload1 )
+$ ./filename $(cat payload1 )
 Segmentation fault (core dumped)
 
-$ gdb -core core
+
+
+$ gdb -core core-filenmae
 .
 .
 #0 <0x00005555555551ad> in ?? ()     <- here is corruption pointer
