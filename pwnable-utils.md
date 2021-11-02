@@ -85,6 +85,18 @@ $ gem install one_gadget
 $ sudo wget -O /usr/local/gdbinit-gef.py -q http://gef.blah.cat/py
 $ echo source /usr/local/gdbinit-gef.py >> ~/.gdbinit
 
+
+gef➤  pattern create 300
+[+] Generating a pattern of 300 bytes (n=4)
+.
+.
+gef➤  pattern search laaamaaa
+[+] Searching for 'laaamaaa'
+[+] Found at offset 44 (big-endian search)
+gef➤  pattern search kaaalaaa
+[+] Searching for 'kaaalaaa'
+[+] Found at offset 40 (big-endian search)
+gef➤
 ```
 
 
