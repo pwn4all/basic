@@ -1,4 +1,5 @@
 # &#35; linux x86_64
+#### Linux system call table : <https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md/>
 
 ```bash
 $ cat shell.s
