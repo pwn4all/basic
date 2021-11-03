@@ -1,5 +1,6 @@
 # &#35; linux x86_64
 #### Linux system call table : <https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md/>
+#### get shellcode to binary : <https://www.commandlinefu.com/commands/view/6051/get-all-shellcode-on-binary-file-from-objdump>
 
 ```bash
 $ cat shell.s
