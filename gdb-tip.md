@@ -42,3 +42,20 @@ rbp   0x4141414141414141    0x4141414141414141   <- overflow data
 rip   0x00005555555551ad    0x00005555555551ad
 
 ```
+
+
+
+
+#### &#42; load specific libc
+```bash
+$ gdb ./vulnerable -q
+GEF for linux ready, type `gef' to start, `gef config' to configure
+94 commands loaded for GDB 9.2 using Python engine 3.8
+[*] 2 commands could not be loaded, run `gef missing` to know why.
+Reading symbols from ./vulnerable...
+(No debugging symbols found in ./vulnerable)
+gef➤  set environment LD_PRELOAD=./libc.so
+gef➤
+       
+
+```
