@@ -8,6 +8,10 @@ $ export LD_PRELOAD=./libc.so
 ## 2) gdb
 $ gdb ./binary -q
 gef➤ set environment LD_PRELOAD=./libc.so
+gef➤  show environment
+.
+.
+LD_PRELOAD=./libc.so
 
 
 ## 3) execute
