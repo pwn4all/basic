@@ -25,7 +25,7 @@ Dump of assembler code for function main:
    0x0000000000001149 <+0>:	endbr64
    0x000000000000114d <+4>:	push   rbp
    0x000000000000114e <+5>:	mov    rbp,rsp
-   0x0000000000001151 <+8>:	lea    rdi,[rip+0xeac]        # 0x2004 => /bin/sh
+   0x0000000000001151 <+8>:	lea    rdi,[rip+0xeac]        // 0x2004 => /bin/sh
    0x0000000000001158 <+15>:	mov    eax,0x0
    0x000000000000115d <+20>:	call   0x1050 <system@plt>
    0x0000000000001162 <+25>:	nop
