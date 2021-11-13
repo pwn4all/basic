@@ -11,7 +11,8 @@
 | extract dex | dex2jar                 | <https://github.com/pxb1988/dex2jar/> |
 | extract & Patch | apktool                 | <https://ibotpeaches.github.io/Apktool/install/> |
 | extract shellcode | extract shellcode | <https://www.commandlinefu.com/commands/view/6051/get-all-shellcode-on-binary-file-from-objdump/> |
-
+| pwn | libc-database                 | <https://github.com/niklasb/libc-database/> |
+| pwn | libc-database                 | <https://libc.blukat.me/>,  <https://libc.rip/> |
 
 
 
