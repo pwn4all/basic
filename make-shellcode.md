@@ -48,10 +48,8 @@ $ echo "\"$(objdump -d ./shell | grep '[0-9a-f]:' | cut -d$'\t' -f2 | grep -v 'f
 "\x48\x31\xf6\x56\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x54\x5f\x6a\x3b\x58\x99\x0f\x05"
 
 
-$ gcc -fno-stack-protector -z execstack shell.c -o shell
-
-*/
-
+$ cat shell.c
+// gcc -fno-stack-protector -z execstack shell.c -o shell
 #include <stdio.h>
 
 unsigned char shellcode[] = \
