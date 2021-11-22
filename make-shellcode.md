@@ -100,7 +100,7 @@ _start:
 user@pwn:/pwn/shell$
 
 
-$ nasm -f elf shell32.s -o shell32.o
+$ nasm -f elf32 shell32.s -o shell32.o
 $ ld -m elf_i386 -s shell32.o -o shell32
 $ ./shell32
 $ id
