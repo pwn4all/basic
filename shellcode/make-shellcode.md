@@ -140,7 +140,7 @@ int main()
     ret();
 }
 
-$ gcc -m64 -fno-stack-protector -z execstack shell32.c -o shell
+$ gcc -m32 -fno-stack-protector -z execstack shell32.c -o shell
 $ ./shell
 $ id
 uid=1000(user) gid=1000(user) groups=1000(user)
