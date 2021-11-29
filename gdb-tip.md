@@ -9,7 +9,7 @@ $ sudo vi /etc/security/limit.conf
 #<domain>      <type>  <item>         <value>
 *               -       core            unlimited
 
-$ sudo /etc/sysctl.conf
+$ sudo cat /etc/sysctl.conf
 #kernel.core_pattern = core.%e.%p.%t
 kernel.core_pattern = core.%e.%p
 
