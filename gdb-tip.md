@@ -1,4 +1,4 @@
-# &#35; how to use gdb
+# &#35; tip of gdb
 
 #### &#42; core file debugging
 ```bash
@@ -57,5 +57,28 @@ Reading symbols from ./vulnerable...
 gef➤  set environment LD_PRELOAD=./libc.so
 gef➤
        
+
+```
+
+
+#### &#42; setting environment
+```bash
+gef> set env TEST=AAAAAAAAAA
+gef> show env TEST
+TEST = AAAAAAAAAA
+gef>
+
+```
+
+
+#### &#42; input payload using stdin
+```bash
+gef> r < payload
+
+gef> r < <(python -c 'print("A"*100)')
+
+
+## input argv[n]
+gef> r $(python -c 'print("A"*100)') $(python -c 'print("B"*100)')
 
 ```
