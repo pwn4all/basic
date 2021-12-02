@@ -82,3 +82,48 @@ gef> r < <(python -c 'print("A"*100)')
 gef> r $(python -c 'print("A"*100)') $(python -c 'print("B"*100)')
 
 ```
+
+
+#### &#42; debugging using gdbserver
+```bash
+#### 1) find process id
+$ ps -ef|grep final-zero
+user      4295  4292  0 01:45 pts/3    00:00:00 /opt/phoenix/i486/final-zero
+
+#### 2) run gdbserver with target process id
+gdbserver :8888 --attach 4295
+Attached; pid = 4295
+Listening on port 8888
+
+#### 3) access gdbserver using gdb client
+$ gdb -q
+gef> set arch
+auto               i386:intel         i386:x64-32        i386:x64-32:nacl   i386:x86-64:intel  i8086
+i386               i386:nacl          i386:x64-32:intel  i386:x86-64        i386:x86-64:nacl
+gef> set arch i386
+The target architecture is assumed to be i386
+gef> 
+gef> target remote 127.0.0.1:8888
+Remote debugging using 127.0.0.1:8888
+Reading /opt/phoenix/i486/final-zero from remote target...
+warning: File transfers from remote targets can be slow. Use "set sysroot" to access files locally instead.
+Reading /opt/phoenix/i486/final-zero from remote target...
+Reading symbols from target:/opt/phoenix/i486/final-zero...(no debugging symbols found)...done.
+Reading /opt/phoenix/i486-linux-musl/lib/ld-musl-i386.so.1 from remote target...
+Reading symbols from target:/opt/phoenix/i486-linux-musl/lib/ld-musl-i386.so.1...done.
+Reading /opt/phoenix/i486-linux-musl/lib/ld-musl-i386.so.1 from remote target...
+
+
+#### 4) start debugging
+gef> x/32xw $ebp-0x210
+0xffffd4d8:	0x90909090	0x90909090	0x90909090	0x90909090
+0xffffd4e8:	0x90909090	0x90909090	0x90909090	0x90909090
+0xffffd4f8:	0x90909090	0x90909090	0x90909090	0x90909090
+0xffffd508:	0x90909090	0x90909090	0x90909090	0x90909090
+0xffffd518:	0x90909090	0x90909090	0x90909090	0x90909090
+0xffffd528:	0x90909090	0x90909090	0x90909090	0x90909090
+0xffffd538:	0x90909090	0x90909090	0x90909090	0x90909090
+0xffffd548:	0x90909090	0x90909090	0x90909090	0x90909090
+gef>
+
+```
