@@ -91,9 +91,10 @@ $ ps -ef|grep final-zero
 user      4295  4292  0 01:45 pts/3    00:00:00 /opt/phoenix/i486/final-zero
 
 #### 2) run gdbserver with target process id
-gdbserver :8888 --attach 4295
+$ gdbserver :8888 --attach 4295
 Attached; pid = 4295
 Listening on port 8888
+
 
 #### 3) access gdbserver using gdb client
 $ gdb -q
@@ -125,5 +126,23 @@ gef> x/32xw $ebp-0x210
 0xffffd538:	0x90909090	0x90909090	0x90909090	0x90909090
 0xffffd548:	0x90909090	0x90909090	0x90909090	0x90909090
 gef>
+
+```
+
+
+#### &#42; debugging attach pid
+```bash
+#### 1) find process id
+$ ps -ef|grep final-zero
+user      4295  4292  0 01:45 pts/3    00:00:00 /opt/phoenix/i486/final-zero
+
+#### 2) run gdb with target process id
+
+$ gdb -q [/opt/phoenix/i486/final-zero] -p 4295
+
+or 
+
+$ gdb -q
+gef> attach 4295
 
 ```
