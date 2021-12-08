@@ -14,6 +14,6 @@
 | extract shellcode | extract shellcode | <https://www.commandlinefu.com/commands/view/6051/get-all-shellcode-on-binary-file-from-objdump/> |
 | pwn | libc-database                 | <https://github.com/niklasb/libc-database/> |
 | pwn | libc-database                 | <https://libc.blukat.me/>,  <https://libc.rip/> |
-| pwn | reverse shell                 | <https://www.revshells.com/> |
+| pwn | reverse shell                 | <https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md/> |
 
 
