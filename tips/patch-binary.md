@@ -89,7 +89,7 @@ $ vi -b speedrun-006-alarm
 #### &#42; 2-2. patch direct using command
 ```bash
 ## have to find unique string (want to change)
-$ xxd binary | sed 's/e8 67f8 ffff/32 c090 9090/g' | xxd -r > binary_patch
+$ xxd binary | sed 's/e847 fcff ff48/31c0 9090 9048/g' | xxd -r > binary_patch
 $ sed -i s/fork/sync/ binary_patch
 
 ```
