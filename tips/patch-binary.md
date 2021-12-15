@@ -133,26 +133,29 @@ mkdir /tmp/justify
 <table>
     <thead>
         <tr>
-            <th>Layer 1</th>
-            <th>Layer 2</th>
-            <th>Layer 3</th>
+            <th>Seperate</th>
+            <th>machine code</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td rowspan=4>L1 Name</td>
-            <td rowspan=2>L2 Name A</td>
-            <td>L3 Name A</td>
+            <td>Before</td>
+            <td>
+000498c0: 0dfb bf04 0048 8d35 eebe 0400 488d 3d00  .....H.5....H.=.
+000498d0: bf04 00ba 8e00 0000 e803 83fb ff0f 1f00  ................
+000498e0: b825 0000 000f 0548 3d01 f0ff ff73 01c3  .%.....H=....s..
+000498f0: 48c7 c1c0 ffff fff7 d864 8901 4883 c8ff  H........d..H...
+00049900: c366 2e0f 1f84 0000 0000 000f 1f44 0000  .f...........D..
+            </td>
         </tr>
         <tr>
-            <td>L3 Name B</td>
-        </tr>
-        <tr>
-            <td rowspan=2>L2 Name B</td>
-            <td>L3 Name C</td>
-        </tr>
-        <tr>
-            <td>L3 Name D</td>
+            <td>After</td>
+            <td>
+000498c0: 0dfb bf04 0048 8d35 eebe 0400 488d 3d00  .....H.5....H.=.
+000498d0: bf04 00ba 8e00 0000 e803 83fb ff0f 1f00  ................
+000498e0: b825 0000 0090 9048 3d01 f0ff ff73 01c3  .%.....H=....s..
+000498f0: 48c7 c1c0 ffff fff7 d864 8901 4883 c8ff  H........d..H...
+            </td>
         </tr>
     </tbody>
 </table>
