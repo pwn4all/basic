@@ -128,6 +128,34 @@ mkdir /tmp/justify
 000498e0: b825 0000 0090 9048 3d01 f0ff ff73 01c3  .%.....H=....s..
 000498f0: 48c7 c1c0 ffff fff7 d864 8901 4883 c8ff  H........d..H...
 
+ 
+ 
+<table>
+    <thead>
+        <tr>
+            <th>Layer 1</th>
+            <th>Layer 2</th>
+            <th>Layer 3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan=4>L1 Name</td>
+            <td rowspan=2>L2 Name A</td>
+            <td>L3 Name A</td>
+        </tr>
+        <tr>
+            <td>L3 Name B</td>
+        </tr>
+        <tr>
+            <td rowspan=2>L2 Name B</td>
+            <td>L3 Name C</td>
+        </tr>
+        <tr>
+            <td>L3 Name D</td>
+        </tr>
+    </tbody>
+</table>
 
 
 
