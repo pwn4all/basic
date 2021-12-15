@@ -104,11 +104,11 @@ mkdir /tmp/justify
 
 ###################################
 #include <math.h>
-int isnan ( double x );
-int isnanf ( float x );    [+] don't change because isnanf is 6 chars but alarm is 5 char
+#int isnan ( double x );
+#int isnanf ( float x );    [+] don't change because isnanf is 6 chars but alarm is 5 char
 ###################################
 #include <unistd.h>
-unsigned alarm(unsigned seconds);
+#unsigned alarm(unsigned seconds);
 ###################################
 
 
