@@ -95,12 +95,8 @@ $ sed -i s/fork/sync/ binary_patch
 ```
 
 
-#### &#42; 2-3. patch direct using command
+#### &#42; 2-3. patch direct using command (x86(32bit))
 ```bash
-################
-## x86(32bit) ##
-################
-
 # remove any pesky alarms
 sed -i s/alarm/isnan/ binary_patched
 sed -i s/alarm/isnanf/ binary_patched
@@ -115,11 +111,10 @@ mkdir /tmp/justify
 #unsigned alarm(unsigned seconds);
 ###################################
 
+```
 
 
-################
-## x64(64bit) ##
-################
+#### &#42; 2-4. patch direct using command (x64(64bit))
 ## change syscall (0f 05) to NOP(90)
 |  \   | machine code   |
 |:---: | :---: | :--- |  
@@ -136,7 +131,6 @@ mkdir /tmp/justify
  |
 
 
-```
 
 
 #### &#42; change path
