@@ -116,8 +116,8 @@ mkdir /tmp/justify
 
 #### &#42; 2-4. patch direct using command (x64(64bit))
 ## change syscall (0f 05) to NOP(90)
-|  \   | machine code   |
-|:---: | :---: | :--- |  
+|  \   | machine code |
+|:---: | :---: |  
 | before | 000498c0: 0dfb bf04 0048 8d35 eebe 0400 488d 3d00  .....H.5....H.=.<br>
 000498d0: bf04 00ba 8e00 0000 e803 83fb ff0f 1f00  ................<\br>
 000498e0: b825 0000 000f 0548 3d01 f0ff ff73 01c3  .%.....H=....s..<\br>
