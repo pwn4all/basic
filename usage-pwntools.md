@@ -22,3 +22,17 @@ uid=1000(user) gid=1000(user) groups=1000(user),27(sudo)
 
 
 ```
+
+
+```bash
+## cyclic
+$ pwn cyclic 100
+aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaa
+$ pwn cyclic -l caaa
+8
+
+```
+
+
+
+
