@@ -99,7 +99,7 @@ $ sed -i s/fork/sync/ binary_patch
 ```bash
 # remove any pesky alarms
 sed -i s/alarm/isnan/ binary_patched
-sed -i s/alarm/isnanf/ binary_patched
+sed -i s/alarm/isnanf/ binary_patched    # don't change because isnanf is 6 chars but alarm is 5 char
 mkdir /tmp/justify
 
 ###################################
