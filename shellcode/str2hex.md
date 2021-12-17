@@ -1,6 +1,6 @@
 
 
-# &#35; sting to hex
+# &#35; string to hex
 
 
 ```python
