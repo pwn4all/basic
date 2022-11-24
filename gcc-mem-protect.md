@@ -2,18 +2,24 @@
 
 #### &#42; gcc manual : <https://..../>
 
+#### &#42; Compile bit(32/64bit)
+```bash
+$ sudo apt update
+$ sudo apt install build-essential
+$ sudo apt install gcc-multilib # install lib
+$ sudo apt install gdb
+
+$ gcc -m32 ... # compile 32bit on 64bit
+$ gcc -m64 ... # compile 64bit on 64bit (default option)
+```
+
+
 #### &#42; All off
 ```bash
 $ gcc -m32 -mpreferred-stack-boundary=2 -fno-stack-protector -z execstack -no-pie -z norelro filename.c -o filename
 $ gcc -m64 -mpreferred-stack-boundary=4 -fno-stack-protector -z execstack -no-pie -z norelro filename.c -o filename
 ```
 
-#### &#42; Compile bit(32/64bit)
-```bash
-$ sudo apt install gcc-multilib # install lib
-$ gcc -m32 ... # compile 32bit on 64bit
-$ gcc -m64 ... # compile 64bit on 64bit (default option)
-```
 
 #### &#42; Fixed dummy between variables(32/64bit)
 ```bash
