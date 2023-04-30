@@ -41,6 +41,7 @@ echo "source /usr/local/gef/gef.py" >> ~/.gdbinit
 ####################################################################################
 apt-get install python3-capstone -y
 python3 -m pip install ropgadget
+echo "alias ropgadget='/usr/local/lib/python3.8/dist-packages/bin/ROPgadget'" >> ~/.bashrc
 
 
 ####################################################################################
