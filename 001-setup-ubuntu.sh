@@ -4,7 +4,7 @@
 apt-get update
 apt-get install build-essential gcc-multilib g++-multilib -y
 apt-get install gdb gdb-multiarch tmux -y
-apt-get install vim net-tools netcat git curl -y
+apt-get install vim net-tools netcat git curl locales -y
 
 ####################################################################################
 ## install pwntools
