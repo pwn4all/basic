@@ -25,13 +25,19 @@ apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386 -y
 ####################################################################################
 ## install peda and gef
 ####################################################################################
+mkdir /usr/local/peda
+chown user:user /usr/local/peda
 git clone https://github.com/longld/peda.git /usr/local/peda
 echo "source /usr/local/peda/peda/peda.py" >> ~/.gdbinit
 
+mkdir /usr/local/pwndbg
+chown user:user /usr/local/pwndbg
 git clone https://github.com/pwndbg/pwndbg /usr/local/pwndbg
 cd /usr/local/pwndbg && ./setup.sh
 echo 'source /usr/local/pwndbg/gdbinit.py' >> ~/.gdbinit
 
+mkdir /usr/local/gef
+chown user:user /usr/local/gef
 curl -L https://raw.githubusercontent.com/hugsy/gef/dev/gef.py -o /usr/local/gef/gef.py
 echo "source /usr/local/gef/gef.py" >> ~/.gdbinit
 
@@ -49,4 +55,3 @@ echo "alias ropgadget='/usr/local/lib/python3.8/dist-packages/bin/ROPgadget'" >>
 ####################################################################################
 apt-get install ruby -y
 gem install one_gadget
-
