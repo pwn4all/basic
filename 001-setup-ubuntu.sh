@@ -28,7 +28,7 @@ apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386 -y
 mkdir /usr/local/peda
 chown user:user /usr/local/peda
 git clone https://github.com/longld/peda.git /usr/local/peda
-echo "source /usr/local/peda/peda/peda.py" >> ~/.gdbinit
+echo "source /usr/local/peda/peda.py" >> ~/.gdbinit
 
 mkdir /usr/local/pwndbg
 chown user:user /usr/local/pwndbg
