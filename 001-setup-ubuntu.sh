@@ -25,6 +25,13 @@ apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386 -y
 ####################################################################################
 ## install peda and gef
 ####################################################################################
+mkdir /usr/local/gef
+chown user:user /usr/local/gef
+bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
+mv .gef-2024.06.py /usr/local/gef.py
+echo "source /usr/local/gef/gef.py" >> ~/.gdbinit
+
+
 mkdir /usr/local/peda
 chown user:user /usr/local/peda
 git clone https://github.com/longld/peda.git /usr/local/peda
@@ -36,10 +43,7 @@ git clone https://github.com/pwndbg/pwndbg /usr/local/pwndbg
 cd /usr/local/pwndbg && ./setup.sh
 echo 'source /usr/local/pwndbg/gdbinit.py' >> ~/.gdbinit
 
-mkdir /usr/local/gef
-chown user:user /usr/local/gef
-curl -L https://raw.githubusercontent.com/hugsy/gef/dev/gef.py -o /usr/local/gef/gef.py
-echo "source /usr/local/gef/gef.py" >> ~/.gdbinit
+
 
 
 ####################################################################################
