@@ -14,6 +14,15 @@ python3 -m pip install --upgrade pip
 python3 -m pip install --upgrade pwntools
 
 
+On Mac------------------------------------------------------------------------------
+brew install cmake
+brew install libffi
+brew install pkg-config
+pip3 install --upgrade pip
+pip3 install pwntools
+------------------------------------------------------------------------------------
+
+
 ####################################################################################
 ## install 32bit-libs
 ####################################################################################
