@@ -53,6 +53,15 @@ apt-get install python3-capstone -y
 python3 -m pip install ropgadget
 echo "alias ropgadget='/usr/local/lib/python3.8/dist-packages/bin/ROPgadget'" >> ~/.bashrc
 
+------------------------------------------------------------------------------------
+wget https://github.com/0vercl0k/rp/releases/download/v1/rp-lin-x86
+wget https://github.com/0vercl0k/rp/releases/download/v2.0.2/rp-lin-x64
+
+chmod 755 rp-lin-x*
+sudo mv rp-lin-x* /usr/local/bin
+
+rp-lin-x64 -f ./speedrun -r 1 | grep "syscall ; ret"
+------------------------------------------------------------------------------------
 
 ####################################################################################
 ## install one_gadget
